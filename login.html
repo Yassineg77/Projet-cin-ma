@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body style="background-image: url('https://cdn.pixabay.com/photo/2017/11/24/10/43/ticket-2974645_1280.jpg');">
+    <br>
+    <br>
+    <div class="cont">
+        <div class="form sign-in">
+            <h2>Bonjour</h2>
+            <label>
+                <span>Email</span>
+                <input type="email" id="loginEmail" required/>
+            </label>
+            <label>
+                <span>Mot De Passe</span>
+                <input type="password" id="loginPassword" required/>
+            </label>
+            <button type="button" class="submit" id="loginButton">Se Connecter</button>
+        </div>
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h3>Vous n'avez pas de compte ? Inscrivez-Vous<h3>
+                </div>
+                <div class="img__text m--in">
+                    <h3>Vous avez un compte ? Connectez-Vous<h3>
+                </div>
+                <div class="img__btn">
+                    <span class="m--up">Inscription</span>
+                    <span class="m--in">Connexion</span>
+                </div>
+            </div>
+            <div class="form sign-up">
+                <h2>Créer Un Compte</h2>
+                <label>
+                    <span>Nom</span>
+                    <input type="text" id="signupName" required/>
+                </label>
+                <label>
+                    <span>Email</span>
+                    <input type="email" id="signupEmail" required/>
+                </label>
+                <label>
+                    <span>Mot De Passe</span>
+                    <input type="password" id="signupPassword" required/>
+                </label>
+                <button type="button" class="submit" id="signupButton">S'inscrire</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Tableau pour stocker les informations des utilisateurs
+            var users = [
+                {name: "Yassine", email: "yassine@gmail.com", password: "yagashirag77"}
+            ];
+
+            // Fonction pour ajouter un utilisateur au tableau
+            function addUser(name, email, password) {
+                users.push({name: name, email: email, password: password});
+            }
+
+            // Fonction pour vérifier si un utilisateur existe dans le tableau
+            function userExists(email, password) {
+                return users.some(function(user) {
+                    return user.email === email && user.password === password;
+                });
+            }
+
+            // Événement lorsqu'on clique sur le bouton "Se Connecter"
+            $('#loginButton').click(function() {
+                var email = $('#loginEmail').val();
+                var password = $('#loginPassword').val();
+
+                if (userExists(email, password)) {
+                    // Redirection vers la page home.html
+                    window.location.href = 'home.html';
+                } else {
+                    alert('Email ou mot de passe incorrect.');
+                }
+            });
+
+            // Événement lorsqu'on clique sur le bouton "S'inscrire"
+            $('#signupButton').click(function() {
+                var name = $('#signupName').val();
+                var email = $('#signupEmail').val();
+                var password = $('#signupPassword').val();
+
+                addUser(name, email, password);
+                alert('Inscription réussie.');
+            });
+
+            // Toggle pour afficher le formulaire d'inscription ou de connexion
+            $('.img__btn').click(function() {
+                $('.cont').toggleClass('s--signup');
+            });
+        });
+    </script>
+</body>
+</html>
